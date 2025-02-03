@@ -1,7 +1,8 @@
 import arcade
 from tile import Tile
 from textures import dirt_texture, player_texture, cursor_texture
-from math import ceil
+from math import ceil, floor
+from methods import wrld_Pixels_To_Tile
 
 class Map():
     
@@ -40,16 +41,10 @@ class Map():
                 sprite = tile.sprite
                 self.scene.add_sprite("Tile", sprite)
                 
-                # Debugging: Check if sprite was added
-                if sprite in self.scene["Tile"]:
-                    print(f"Added tile sprite at ({x}, {y}) to the scene.")
-                else:
-                    print(f"Failed to add tile sprite at ({x}, {y}) to the scene.")
             self.tile_list.append(row)
     
     def break_Tile(self, x, y):
-        x = ceil(x / 32) - 1
-        y = -ceil(y / 32)
+        x, y = wrld_Pixels_To_Tile(x, y)
 
         if x < 0 or y < 0 or x >= self.size_x or y >= self.size_y:
             print(f"Outside map: ({x}, {y})!!")
@@ -62,9 +57,9 @@ class Map():
             return
 
         if tile.sprite in self.scene["Tile"]:
-            print(f"Tile sprite at ({x}, {y}) exists in the scene. Removing...")
+            #print(f"Tile sprite at ({x}, {y}) exists in the scene. Removing...")
             self.scene["Tile"].remove(tile.sprite)  
-            print(f"Tile sprite at ({x}, {y}) removed from scene.")
+            #print(f"Tile sprite at ({x}, {y}) removed from scene.")
         else:
             print(f"Tile sprite at ({x}, {y}) does NOT exist in the scene.")
         
@@ -76,9 +71,7 @@ class Map():
 
     def draw_Cursor(self, x, y):
         
-        x = ceil(x / 32) - 1
-        y = -ceil(y / 32)
-        print(f"{x} {y}")
+        x, y = wrld_Pixels_To_Tile(x, y)
         
         self.cursor.center_x = (32 * x + 16)
         self.cursor.center_y = (-32 * y - 16)

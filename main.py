@@ -1,7 +1,7 @@
 import arcade
 from textures import dirt_texture, player_texture
 from map import Map
-from methods import convert_Pos
+from methods import convert_Pos, range_Tile, wrld_Pixels_To_Tile
 import settings
 
 
@@ -10,7 +10,7 @@ import settings
 class GameView(arcade.Window):
     
     def __init__(self):
-        super().__init__(settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT, settings.WINDOW_NAME, fullscreen=True, resizable=False)
+        super().__init__(settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT, settings.WINDOW_NAME, fullscreen=False, resizable=False)
         
         self.background_color = arcade.csscolor.CORNFLOWER_BLUE
         
@@ -117,8 +117,10 @@ class GameView(arcade.Window):
     def on_mouse_press(self, x, y, button, modifiers):
       
         pos_x, pos_y = convert_Pos(x, y, self.camera)
+        
         if button == arcade.MOUSE_BUTTON_LEFT:
-            self.map.break_Tile(pos_x, pos_y)
+            if range_Tile(*wrld_Pixels_To_Tile(self.map.player_sprite.center_x, self.map.player_sprite.center_y), *wrld_Pixels_To_Tile(pos_x, pos_y)) <= settings.PLAYER_REACH:
+                self.map.break_Tile(pos_x, pos_y)
             
             
     def on_mouse_motion(self, x, y, dx, dy):

@@ -1,11 +1,10 @@
 import arcade
 from math import floor
 from map import Map
-
+import settings
 
 @staticmethod
 def convert_Pos(x, y, camera):
-    world_x = x - int(1280/2) + int(camera.position.x)
-    world_y = y - int(720/2) + int(camera.position.y)
-    print(f"Mouse ({x}, {y}) → World ({world_x}, {world_y}) {camera.position.x} {camera.position.y}")  # Debugging print
+    world_x = x - int(settings.WINDOW_WIDTH/2) + int(camera.position.x)
+    world_y = y - int(settings.WINDOW_HEIGHT/2) + int(camera.position.y)
     return int(world_x), int(world_y)

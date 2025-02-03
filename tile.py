@@ -1,8 +1,5 @@
 import arcade
 
-
-
-
 class Tile():
     
     def __init__(self, center_x: int, center_y: int, grid_x: int, grid_y: int, texture: arcade.Texture):
@@ -12,8 +9,7 @@ class Tile():
         self._grid_x = grid_x
         self._grid_y = grid_y
         self.sprite = arcade.Sprite(texture, center_x= self._center_x, center_y= self._center_y)
-        self.broken = False
-        
+        self.draw = True
         
     def __str__(self):
         return f"x{self.center_x}  y{self.center_y}"
@@ -34,7 +30,7 @@ class Tile():
     def center_y(self):
         return self._center_y
     
-    def break_It(self):
-        self.broken = True
-        #self.sprite.remove_from_sprite_lists()
+    def remove(self):
+        del self
+    
         

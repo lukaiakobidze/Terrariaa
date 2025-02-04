@@ -4,6 +4,7 @@ import textures
 from math import ceil, floor
 from methods import wrld_Pixels_To_Tile
 import block
+import random
 
 class Map():
     
@@ -41,12 +42,22 @@ class Map():
             for y in range(0, self.size_y, 1):
                 center_x = (x * 32) + 16
                 center_y = -(y * 32) - 16
-                if y > 3:
+                
+                if y < 21:
+                    tile = Tile(center_x, center_y, x, y, block.air_block)
+                elif y < 24:
+                    tile = Tile(center_x, center_y, x, y, block.dirt_Block) 
+                elif y == 24:
+                    if random.random() > 0.6:
+                        tile = Tile(center_x, center_y, x, y, block.cobblestone_Block)
+                    else:
+                        tile = Tile(center_x, center_y, x, y, block.dirt_Block)  
+                elif y > 24:
                     tile = Tile(center_x, center_y, x, y, block.cobblestone_Block)
-                else:
-                    tile = Tile(center_x, center_y, x, y, block.dirt_Block)    
+                   
                 row.append(tile)
-                self.scene.add_sprite("Tile", tile.sprite)
+                if not tile.block.invisible:
+                    self.scene.add_sprite("Tile", tile.sprite)
                 
             self.tile_list.append(row)
     

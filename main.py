@@ -7,6 +7,7 @@ import time
 
 
 
+
 #-------------------------------------------------GAMEVIEW-------------------------------------------------
 
 class GameView(arcade.Window):
@@ -36,7 +37,7 @@ class GameView(arcade.Window):
 
     def setup(self):
 
-        self.map = Map(100, 20)
+        self.map = Map(500, 50)
         self.map.make_Tiles()
         self.current_Mouse_Pos = (0, 0)
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.map.player_sprite, walls=self.map.scene["Tile"], gravity_constant=settings.GRAVITY)

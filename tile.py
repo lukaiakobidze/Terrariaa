@@ -24,7 +24,11 @@ class Tile():
     @property 
     def grid_y(self):
         return self._grid_y
-        
+    
+    @property
+    def pos_Grid(self):
+        return self._grid_x, self._grid_y
+    
     @property
     def center_x(self):
         return self._center_x

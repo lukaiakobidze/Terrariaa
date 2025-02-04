@@ -14,6 +14,6 @@ class Block():
 
 
 
-dirt_Block = Block("Dirt", textures.dirt_texture, True, 0.1, False)
+dirt_Block = Block("Dirt", textures.dirt_texture, True, 1, False)
 cobblestone_Block = Block("Cobblestone", textures.cobblestone_texture, True, 0.1, False)
 air_block = Block("Air", textures.air_texture, False, 0, True)

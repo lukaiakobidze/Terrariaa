@@ -1,5 +1,5 @@
 import arcade
-from textures import dirt_texture, player_texture
+import textures
 from map import Map
 from methods import convert_Pos, range_Tile, wrld_Pixels_To_Tile
 import settings
@@ -74,8 +74,10 @@ class GameView(arcade.Window):
         elif self.down_pressed and not self.up_pressed:
             self.map.player_sprite.change_y = -settings.PLAYER_MOVEMENT_SPEED
         if self.left_pressed and not self.right_pressed:
+            self.map.player_sprite.set_texture(1)
             self.map.player_sprite.change_x = -settings.PLAYER_MOVEMENT_SPEED
         elif self.right_pressed and not self.left_pressed:
+            self.map.player_sprite.set_texture(0)
             self.map.player_sprite.change_x = settings.PLAYER_MOVEMENT_SPEED
     
 #----------------------------------------------ON_UPDATE----------------------------------------------------

@@ -21,8 +21,8 @@ class Map():
         self.scene.add_sprite_list("Cursor")
         
         self.breaking_sprite = None
-        #self.scene.add_sprite("Breaking", None)
-        self.player_sprite = arcade.Sprite(textures.player_texture,center_x=50,center_y=0)
+        self.player_sprite = arcade.Sprite(textures.player_Right_texture,center_x=50,center_y=0)
+        self.player_sprite.append_texture(textures.player_Left_texture)
         self.scene.add_sprite("Player", self.player_sprite)
         self.cursor = arcade.Sprite(textures.cursor_texture, center_x=0,center_y=0)
         self.scene.add_sprite("Cursor", self.cursor)

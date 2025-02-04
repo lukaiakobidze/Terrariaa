@@ -13,7 +13,7 @@ def range_Tile(x1, y1, x2, y2):
     x = abs(x2 - x1)
     y = abs(y2 - y1)
     answ = floor(sqrt((x * x) + (y * y)))
-    print(f"range: {answ}")
+    #print(f"range: {answ}")
     return answ
 
 @staticmethod

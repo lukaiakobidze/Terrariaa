@@ -167,18 +167,15 @@ class GameView(arcade.Window):
             
     def on_mouse_motion(self, x, y, dx, dy):
         current_tile = wrld_Pixels_To_Tile(*convert_Pos(x, y, self.camera))
-        if self.mouse_Pressed and self.map.tile_list[current_tile[0]][current_tile[1]] != self.selected_Block:
+        
+        if self.selected_Block and self.mouse_Pressed:
+            if self.map.tile_list[current_tile[0]][current_tile[1]] != self.selected_Block and range_Tile(*current_tile, *wrld_Pixels_To_Tile(self.map.player_sprite.center_x, self.map.player_sprite.center_y)) <= settings.PLAYER_REACH:
+                self.selected_Block = self.map.tile_list[current_tile[0]][current_tile[1]]
+                self.mouse_Pressed_Time = time.time()
+        elif range_Tile(*current_tile, *wrld_Pixels_To_Tile(self.map.player_sprite.center_x, self.map.player_sprite.center_y)) <= settings.PLAYER_REACH:
             self.selected_Block = self.map.tile_list[current_tile[0]][current_tile[1]]
             self.mouse_Pressed_Time = time.time()
-            
-        if self.mouse_Pressed and self.selected_Block:
-            if current_tile != (self.selected_Block.grid_x, self.selected_Block.grid_y):
-                
-                self.mouse_Pressed_Time = time.time()
-                self.selected_Block = self.map.tile_list[wrld_Pixels_To_Tile(*convert_Pos(x, y, self.camera))[0]][wrld_Pixels_To_Tile(*convert_Pos(x, y, self.camera))[1]]
-                print(f"{self.selected_Block}")
         
-    
         self.current_Mouse_Pos = convert_Pos(x, y, self.camera)
         
             

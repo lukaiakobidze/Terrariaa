@@ -5,6 +5,7 @@ from map import Map
 from methods import convert_Pos, range_Tile, wrld_Pixels_To_Tile
 import settings
 import time
+import math
 
 
 
@@ -34,6 +35,8 @@ class GameView(arcade.Window):
         self.mouse_Pressed = False
         self.mouse_Pressed_Time = None
         self.selected_Block = None
+        self.fps = 0
+        self.counter = 0
         
 
 #-----------------------------------------------------SETUP---------------------------------------------------------
@@ -51,12 +54,21 @@ class GameView(arcade.Window):
         
     def on_draw(self):
         self.clear()
+
         self.camera.use()
         self.map.scene["Tile"].draw(pixelated=True)
         if self.mouse_Pressed:
             self.map.scene["Breaking"].draw(pixelated=True)
         self.map.scene["Player"].draw(pixelated=True)
         self.map.scene["Cursor"].draw(pixelated=True)
+        
+        arcade.draw_text(
+            f"FPS: {self.fps}",
+            self.camera.position.x + (self.width / 2) - 100,
+            self.camera.position.y + (self.height / 2) - 40,
+            arcade.color.WHITE,
+            14
+        )
         
         
             
@@ -87,8 +99,12 @@ class GameView(arcade.Window):
 #----------------------------------------------ON_UPDATE----------------------------------------------------
     
     def on_update(self, delta_time):
-    
-        
+        if self.counter == 10:
+            self.fps = math.floor(1 / delta_time)
+            self.counter = 0
+        else:
+            self.counter += 1
+
         if self.map.player_sprite.change_x != 0 or self.map.player_sprite.change_y != 0:
             self.current_Mouse_Pos = convert_Pos(*self.last_Mouse_Pos_Screen, self.camera)
     
